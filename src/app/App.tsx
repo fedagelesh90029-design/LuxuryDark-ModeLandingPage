@@ -255,10 +255,10 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 // ─── Fence SVG Preview ────────────────────────────────────────────────────────
 
-function FencePreview({ construction, material, height, colorIdx, transparency }: {
-  construction: string; material: string; height: number; colorIdx: number; transparency: number;
+function FencePreview({ construction, material, height, customColor, transparency }: {
+  construction: string; material: string; height: number; customColor: string; transparency: number;
 }) {
-  const fc = colorPresets[colorIdx].value;
+  const fc = customColor;
   const hr = (height - 0.8) / 2.7;
   const svgH = 120 + hr * 100;
   const totalW = 360;
@@ -269,80 +269,37 @@ function FencePreview({ construction, material, height, colorIdx, transparency }
 
   let bars: React.ReactNode = null;
 
-  if (construction === "shtaketnık" || construction === "shtaketnik") {
-    const count = material === "wood" ? 9 : 14;
-    const bw = material === "wood" ? 28 : 7;
+  if (construction === "laser") {
+    bars = (
+      <g>
+        <defs>
+          <pattern id="laserPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            {/* Абстрактный узор, имитирующий лазерную резку (геометрия/флора) */}
+            <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="#00000040" strokeWidth="2.5"/>
+            <circle cx="20" cy="20" r="8" fill="none" stroke="#00000040" strokeWidth="2"/>
+            <path d="M5 5 L12 12 M35 5 L28 12 M5 35 L12 28 M35 35 L28 28" stroke="#00000040" strokeWidth="2" strokeLinecap="round"/>
+          </pattern>
+        </defs>
+        {/* Сплошной фон панели */}
+        <rect x={12} y={railY1 + 5} width={totalW - 24} height={innerH}
+          fill={fc} opacity={solidOpacity} rx={1} />
+        {/* Наложение узора */}
+        <rect x={12} y={railY1 + 5} width={totalW - 24} height={innerH}
+          fill="url(#laserPattern)" opacity={0.5} rx={1} />
+      </g>
+    );
+  } else {
+    // "plain" - Обычный металлический забор (вертикальные ламели)
+    const count = 14;
+    const bw = 7;
     bars = Array.from({ length: count }).map((_, i) => {
-      const x = 12 + (i * (totalW - 24)) / count + (count > 10 ? 2 : 4);
+      const x = 12 + (i * (totalW - 24)) / count + 4;
       return (
         <g key={i}>
           <rect x={x} y={railY1 + 5} width={bw} height={innerH} fill={fc} opacity={solidOpacity * 0.95} rx={1} />
-          {material === "wood" && (
-            <line x1={x + bw * 0.4} y1={railY1 + 8} x2={x + bw * 0.38} y2={railY2 - 5} stroke="#00000025" strokeWidth={0.7} />
-          )}
         </g>
       );
     });
-  } else if (construction === "zhalyuzi") {
-    const rows = 8;
-    bars = Array.from({ length: rows }).map((_, i) => {
-      const slotH = innerH / rows;
-      const y = railY1 + 5 + i * slotH;
-      const tilt = (transparency / 100) * 8;
-      return (
-        <g key={i}>
-          <rect x={12} y={y + tilt} width={totalW - 24} height={slotH - 3 - tilt * 2}
-            fill={fc} opacity={solidOpacity} rx={0.5} />
-        </g>
-      );
-    });
-  } else if (construction === "rancho") {
-    const rows = 5;
-    bars = Array.from({ length: rows }).map((_, i) => {
-      const slotH = innerH / rows;
-      const gap = (transparency / 100) * 12;
-      const y = railY1 + 5 + i * slotH + gap / 2;
-      return (
-        <g key={i}>
-          <rect x={12} y={y} width={totalW - 24} height={slotH - 3 - gap}
-            fill={fc} opacity={solidOpacity} rx={1} />
-          {material === "wood" && (
-            <line x1={14} y1={y + (slotH - gap) * 0.5} x2={totalW - 2} y2={y + (slotH - gap) * 0.5}
-              stroke="#ffffff08" strokeWidth={0.5} />
-          )}
-        </g>
-      );
-    });
-  } else if (construction === "glass") {
-    const panels = 3;
-    const pw = (totalW - 36) / panels;
-    bars = Array.from({ length: panels }).map((_, i) => {
-      const x = 14 + i * (pw + 8);
-      return (
-        <g key={i}>
-          <rect x={x} y={railY1 + 5} width={pw} height={innerH}
-            fill={fc} opacity={Math.max(0.04, (1 - transparency / 100) * 0.15)} rx={2} />
-          <rect x={x} y={railY1 + 5} width={pw} height={innerH}
-            fill="none" stroke={fc} strokeWidth={0.8} strokeOpacity={0.3} rx={2} />
-          <line x1={x + pw * 0.2} y1={railY1 + 10} x2={x + pw * 0.12} y2={railY2 - 6}
-            stroke="#ffffff18" strokeWidth={1.5} />
-        </g>
-      );
-    });
-  } else {
-    // Composite — solid panel with subtle texture lines
-    bars = (
-      <g>
-        <rect x={12} y={railY1 + 5} width={totalW - 24} height={innerH}
-          fill={fc} opacity={solidOpacity} rx={1} />
-        {Array.from({ length: 4 }).map((_, i) => (
-          <line key={i}
-            x1={14} y1={railY1 + 8 + i * (innerH / 4)}
-            x2={totalW - 2} y2={railY1 + 8 + i * (innerH / 4)}
-            stroke="#ffffff06" strokeWidth={0.6} />
-        ))}
-      </g>
-    );
   }
 
   const mat = materialOptions.find((m) => m.id === material);
@@ -464,7 +421,7 @@ function Header() {
             </svg>
           </div>
           <span style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: 16, letterSpacing: "0.22em", textTransform: "uppercase" }}>
-            Ограда
+            ГРАНЬ
           </span>
         </div>
 
@@ -713,14 +670,14 @@ function CatalogCard({ model }: { model: typeof catalogModels[0] }) {
 function CustomizerSection() {
   const [construction, setConstruction] = useState("laser");
   const [height, setHeight] = useState(2.2);
-  const [colorIdx, setColorIdx] = useState(1);
+  const [customColor, setCustomColor] = useState("#111111");
 
   const material = "alu";
   const basePricePerMeter: Record<string, number> = { laser: 18500, plain: 12500 };
   const hMult = 0.7 + ((height - 0.8) / 2.7) * 0.6;
   const price = Math.ceil((basePricePerMeter[construction] * hMult) / 500) * 500;
 
-  const configSummary = `Металл, высота ${height.toFixed(1)}м, ${colorPresets[colorIdx].label.toLowerCase()}, ${
+  const configSummary = `Металл, высота ${height.toFixed(1)}м, цвет ${customColor.toUpperCase()}, ${
     construction === "laser" ? "пластины с лазерной резкой" : "обычный забор"
   }`;
 
@@ -737,7 +694,7 @@ function CustomizerSection() {
         </h2>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 grid lg:grid-cols-[2fr_3fr] gap-6 pb-28">
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 flex flex-col lg:grid lg:grid-cols-[2fr_3fr] gap-6 pb-28">
         {/* Left — Controls */}
         <GlassPanel className="flex flex-col overflow-hidden">
           {/* Тип панелей */}
@@ -800,21 +757,23 @@ function CustomizerSection() {
               <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
                 Цвет
               </p>
-              <div className="flex flex-wrap gap-2.5 mb-2">
-                {colorPresets.map((c, i) => (
-                  <button key={c.label} onClick={() => setColorIdx(i)} title={c.label}
-                    className="transition-all duration-200"
-                    style={{
-                      width: 36, height: 36, background: c.value,
-                      border: `2px solid ${i === colorIdx ? GOLD : "transparent"}`,
-                      borderRadius: 4,
-                      boxShadow: i === colorIdx ? `0 0 12px rgba(198,168,107,0.4)` : "none",
-                    }} />
-                ))}
+              <div className="flex items-center gap-4 mb-2">
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0"
+                  style={{ border: `2px solid ${GOLD}`, boxShadow: `0 0 12px rgba(198,168,107,0.3)` }}>
+                  <input type="color" value={customColor} onChange={(e) => setCustomColor(e.target.value)}
+                    className="absolute inset-[-10px] w-[calc(100%+20px)] h-[calc(100%+20px)] cursor-pointer border-0 p-0"
+                    title="Выбрать любой цвет"
+                  />
+                </div>
+                <div>
+                  <p style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 12 }}>
+                    Ваш цвет
+                  </p>
+                  <p style={{ color: "#4a4a4a", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.1em" }}>
+                    {customColor.toUpperCase()}
+                  </p>
+                </div>
               </div>
-              <p style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 11, opacity: 0.65 }}>
-                {colorPresets[colorIdx].label}
-              </p>
             </div>
           </div>
         </GlassPanel>
@@ -824,7 +783,7 @@ function CustomizerSection() {
           <div className="relative flex-1" style={{ minHeight: 460 }}>
             <FencePreview
               construction={construction} material={material}
-              height={height} colorIdx={colorIdx} transparency={transparency} />
+              height={height} customColor={customColor} transparency={transparency} />
             {/* Refresh hint */}
             <div className="absolute top-4 right-4 flex items-center gap-2 opacity-40">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
