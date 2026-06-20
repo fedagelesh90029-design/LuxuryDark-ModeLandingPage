@@ -551,7 +551,7 @@ function HeroSection() {
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
         <div className="flex items-center gap-4 mb-8">
           <div className="h-px w-16" style={{ background: GOLD }} />
-          <span style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase" }}>
+          <span style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: "clamp(9px,2.5vw,11px)", letterSpacing: "0.2em", textTransform: "uppercase" }}>
             Премиум ограждения — с 2008
           </span>
           <div className="h-px w-16" style={{ background: GOLD }} />
@@ -564,25 +564,24 @@ function HeroSection() {
           <span style={{ fontStyle: "italic" }}>ограждения</span> и уюта
         </h1>
 
-        <p className="mb-10 max-w-xl"
-          style={{ color: "rgba(232,226,217,0.7)", fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: 1.7 }}>
-          Создайте ваш идеальный забор или навес
-          <br />в нашем 3D-конфигураторе
+        <p className="mb-8 max-w-md px-4"
+          style={{ color: "rgba(232,226,217,0.7)", fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "clamp(13px,3.5vw,15px)", lineHeight: 1.7 }}>
+          Создайте ваш идеальный забор или навес в нашем 3D-конфигураторе
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <button className="transition-all duration-300"
-            style={{ border: "1px solid rgba(232,226,217,0.25)", color: "rgba(232,226,217,0.7)", fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", padding: "14px 32px" }}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-6 w-full">
+          <a href="#catalog" className="transition-all duration-300 w-full sm:w-auto text-center"
+            style={{ border: "1px solid rgba(232,226,217,0.25)", color: "rgba(232,226,217,0.7)", fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", padding: "13px 28px", textDecoration: "none", display: "block" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(232,226,217,0.55)"; e.currentTarget.style.color = "#E8E2D9"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(232,226,217,0.25)"; e.currentTarget.style.color = "rgba(232,226,217,0.7)"; }}>
             Смотреть модели
-          </button>
-          <button className="transition-all duration-300"
-            style={{ background: GOLD, color: "#0C0C0C", fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", padding: "14px 32px", fontWeight: 600, boxShadow: `0 0 24px rgba(198,168,107,0.3)` }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 40px rgba(198,168,107,0.55)`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 0 24px rgba(198,168,107,0.3)`; }}>
+          </a>
+          <a href="#customizer" className="transition-all duration-300 w-full sm:w-auto text-center"
+            style={{ background: GOLD, color: "#0C0C0C", fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", padding: "13px 28px", fontWeight: 600, boxShadow: `0 0 24px rgba(198,168,107,0.3)`, textDecoration: "none", display: "block" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 40px rgba(198,168,107,0.55)`; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 24px rgba(198,168,107,0.3)`; }}>
             Создать свой проект
-          </button>
+          </a>
         </div>
       </div>
 
@@ -606,8 +605,8 @@ function HeroSection() {
 
 function CatalogSection() {
   return (
-    <section className="py-24" style={{ background: "#0C0C0C" }} id="catalog">
-      <div className="px-8 lg:px-16 max-w-[1400px] mx-auto">
+    <section className="py-16" style={{ background: "#0C0C0C" }} id="catalog">
+      <div className="px-4 sm:px-8 lg:px-16 max-w-[1400px] mx-auto">
         <SectionLabel>Готовые решения</SectionLabel>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <h2 style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#E8E2D9", lineHeight: 1.1 }}>
@@ -620,21 +619,21 @@ function CatalogSection() {
       </div>
 
       {/* Scrollable card row */}
-      <div className="px-8 lg:px-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-[1400px] mx-auto">
+      <div className="px-4 sm:px-8 lg:px-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-[1400px] mx-auto">
           {catalogModels.map((model) => (
             <CatalogCard key={model.name} model={model} />
           ))}
         </div>
       </div>
 
-      <div className="flex justify-center mt-14 px-8">
-        <button className="transition-all duration-300 flex items-center gap-3"
-          style={{ border: `1px solid rgba(198,168,107,0.25)`, color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: "0.14em", padding: "14px 32px" }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = GOLD; e.currentTarget.style.boxShadow = `0 0 20px rgba(198,168,107,0.15)`; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(198,168,107,0.25)"; e.currentTarget.style.boxShadow = "none"; }}>
+      <div className="flex justify-center mt-10 px-4 sm:px-8">
+        <a href="#customizer" className="transition-all duration-300 flex items-center gap-3 text-center"
+          style={{ border: `1px solid rgba(198,168,107,0.25)`, color: GOLD, fontFamily: "Inter, sans-serif", fontSize: "clamp(11px,3vw,12px)", letterSpacing: "0.1em", padding: "12px 20px", textDecoration: "none" }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = GOLD; (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px rgba(198,168,107,0.15)`; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(198,168,107,0.25)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
           Не нашли подходящее? Соберите своё в конструкторе →
-        </button>
+        </a>
       </div>
     </section>
   );
@@ -760,15 +759,15 @@ function CustomizerSection() {
 
   return (
     <section style={{ background: "#121212", minHeight: "100vh" }} id="customizer">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 pt-24 pb-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16 pt-24 pb-6">
         <SectionLabel>Конструктор</SectionLabel>
-        <h2 className="mb-10"
-          style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#E8E2D9" }}>
+        <h2 className="mb-8"
+          style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(1.8rem, 5vw, 3.5rem)", color: "#E8E2D9" }}>
           Конструктор забора
         </h2>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 flex flex-col lg:grid lg:grid-cols-[2fr_3fr] gap-6 pb-28">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16 flex flex-col lg:grid lg:grid-cols-[2fr_3fr] gap-6 pb-16">
         {/* Left — Controls */}
         <GlassPanel className="flex flex-col overflow-hidden">
           {/* Тип панелей */}
@@ -854,7 +853,7 @@ function CustomizerSection() {
 
         {/* Right — Preview (60%) */}
         <div className="flex flex-col gap-4">
-          <div className="relative flex-1" style={{ minHeight: 460 }}>
+          <div className="relative flex-1" style={{ minHeight: 280 }}>
             <FencePreview
               construction={construction} material={material}
               height={height} customColor={customColor} transparency={transparency} />
@@ -872,7 +871,7 @@ function CustomizerSection() {
           </div>
 
           {/* Sticky bottom bar */}
-          <div className="rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
+          <div className="rounded-xl p-4 flex flex-col gap-4"
             style={{ background: "rgba(20,20,20,0.9)", border: `1px solid rgba(198,168,107,0.12)`, backdropFilter: "blur(12px)" }}>
             <div>
               <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 4 }}>
@@ -885,7 +884,7 @@ function CustomizerSection() {
                 Индивидуальный проект в подарок при заказе от 50 метров
               </p>
             </div>
-            <div className="flex items-center gap-6 flex-shrink-0">
+            <div className="flex items-center gap-4 flex-wrap">
               <div>
                 <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.14em" }}>
                   Итоговая стоимость
@@ -928,17 +927,17 @@ function CanopySection() {
   const basePriceMax = (150000 + area * 18000) * roofMult + floorPrice + lightPrice;
 
   return (
-    <section className="py-24" style={{ background: "#0C0C0C" }} id="canopies">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 mb-14">
+    <section className="py-16" style={{ background: "#0C0C0C" }} id="canopies">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16 mb-10">
         <SectionLabel>Навесы</SectionLabel>
-        <h2 style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#E8E2D9" }}>
+        <h2 style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(1.8rem, 5vw, 3.5rem)", color: "#E8E2D9" }}>
           Навесы <span style={{ fontStyle: "italic", color: GOLD }}>премиум-класса</span>
         </h2>
       </div>
 
-      <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-0 min-h-[680px]">
+      <div className="max-w-[1400px] mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-0">
         {/* Left — catalog grid */}
-        <div className="px-8 lg:px-16 pb-10 lg:pb-0">
+        <div className="px-4 sm:px-8 lg:px-16 pb-8 lg:pb-0">
           <div className="grid grid-cols-2 gap-3">
             {canopyStyles.map((cs, i) => (
               <button key={cs.name} onClick={() => setSelected(i)}
@@ -973,8 +972,8 @@ function CanopySection() {
         </div>
 
         {/* Right — dimension calculator */}
-        <div className="px-8 lg:px-16 flex items-center"
-          style={{ borderLeft: "1px solid rgba(198,168,107,0.07)" }}>
+        <div className="px-4 sm:px-8 lg:px-16 flex items-start lg:items-center pt-4 lg:pt-0"
+          style={{ borderTop: "1px solid rgba(198,168,107,0.07)", borderLeft: "none" }}>
           <div className="w-full">
             <p style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontSize: 22, fontWeight: 300, marginBottom: 6 }}>
               Подберите конфигурацию
@@ -1004,7 +1003,7 @@ function CanopySection() {
                 label="Вылет / Глубина" display={`${depth.toFixed(1)} м`} />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div>
                 <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>Покрытие крыши</p>
                 <div className="flex flex-col gap-2">
@@ -1079,7 +1078,7 @@ function PortfolioSection() {
     : portfolioItems.filter((p) => p.cat === activeFilter);
 
   return (
-    <section className="py-24 px-8 lg:px-16" style={{ background: "#0f0f0f" }} id="portfolio">
+    <section className="py-16 px-4 sm:px-8 lg:px-16" style={{ background: "#0f0f0f" }} id="portfolio">
       <div className="max-w-[1400px] mx-auto">
         <SectionLabel>Портфолио</SectionLabel>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -1115,7 +1114,7 @@ function PortfolioSection() {
         </div>
 
         {/* Bento grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[220px]">
           {filtered.map((item, i) => (
             <PortfolioCell key={item.label + i} item={item} />
           ))}
@@ -1178,8 +1177,8 @@ function Footer() {
       {/* Top gold line */}
       <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`, opacity: 0.25 }} />
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-16 pt-16 pb-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-14"
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16 pt-12 pb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-10"
           style={{ borderBottom: "1px solid rgba(198,168,107,0.07)" }}>
 
           {/* Col 1 — Brand */}
@@ -1248,11 +1247,11 @@ function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
+        <div className="flex flex-col gap-4 pt-8 text-center md:text-left">
           <p style={{ color: "#2e2e2e", fontFamily: "Inter, sans-serif", fontSize: 11 }}>
-            © 2024 Ограда. Все права защищены.
+            © 2024 ГРАНЬ. Все права защищены.
           </p>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-8">
             {["Политика конфиденциальности", "Договор оферты"].map((t) => (
               <button key={t} className="transition-colors duration-200"
                 style={{ color: "#2e2e2e", fontFamily: "Inter, sans-serif", fontSize: 11 }}
@@ -1280,10 +1279,15 @@ export default function App() {
   return (
     <div style={{ fontFamily: "Inter, sans-serif", background: "#0C0C0C" }}>
       <style>{`
-        * { scrollbar-width: thin; scrollbar-color: rgba(198,168,107,0.12) transparent; }
+        * { scrollbar-width: thin; scrollbar-color: rgba(198,168,107,0.12) transparent; box-sizing: border-box; }
         *::-webkit-scrollbar { width: 4px; height: 4px; }
         *::-webkit-scrollbar-track { background: transparent; }
         *::-webkit-scrollbar-thumb { background: rgba(198,168,107,0.18); border-radius: 2px; }
+        html { scroll-behavior: smooth; }
+        img { max-width: 100%; height: auto; }
+        @media (max-width: 768px) {
+          .hide-mobile { display: none !important; }
+        }
       `}</style>
       <Header />
       <HeroSection />
