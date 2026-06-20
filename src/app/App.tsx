@@ -117,33 +117,33 @@ const lightingOptions = ["Без подсветки", "LED по верхнему
 
 const canopyStyles = [
   {
-    name: "Пристенный навес",
-    sub: "Плоская кровля",
+    name: "Односкатный навес",
+    sub: "Простая конструкция",
     img: "https://images.unsplash.com/photo-1644491629308-95a9084733ac?w=400&h=260&fit=crop&auto=format",
   },
   {
-    name: "Арочный навес",
-    sub: "Поликарбонат",
+    name: "Двускатный навес",
+    sub: "Классическая форма",
     img: "https://images.unsplash.com/photo-1570596649822-69c52927bf5b?w=400&h=260&fit=crop&auto=format",
+  },
+  {
+    name: "Резной лазером",
+    sub: "С узорами на опорах",
+    img: "https://images.unsplash.com/photo-1649657858673-50802c2eae9f?w=400&h=260&fit=crop&auto=format",
+  },
+  {
+    name: "Пристенный навес",
+    sub: "Примыкание к дому",
+    img: "https://images.unsplash.com/photo-1757439402342-976f4e0733ec?w=400&h=260&fit=crop&auto=format",
+  },
+  {
+    name: "Арочный навес",
+    sub: "Плавные линии",
+    img: "https://images.unsplash.com/photo-1611072337226-1140ab367200?w=400&h=260&fit=crop&auto=format",
   },
   {
     name: "Пергола с тентом",
     sub: "Раздвижной тент",
-    img: "https://images.unsplash.com/photo-1649657858673-50802c2eae9f?w=400&h=260&fit=crop&auto=format",
-  },
-  {
-    name: "Стеклянный козырек",
-    sub: "На пилонах",
-    img: "https://images.unsplash.com/photo-1757439402342-976f4e0733ec?w=400&h=260&fit=crop&auto=format",
-  },
-  {
-    name: "Отдельностоящий павильон",
-    sub: "Автономная конструкция",
-    img: "https://images.unsplash.com/photo-1611072337226-1140ab367200?w=400&h=260&fit=crop&auto=format",
-  },
-  {
-    name: "Терраса с барбекю-зоной",
-    sub: "Комплексное решение",
     img: "https://images.unsplash.com/photo-1619976553860-b7ffbe9a093b?w=400&h=260&fit=crop&auto=format",
   },
 ];
@@ -398,7 +398,13 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navItems = ["Готовые решения", "Конструктор", "Навесы", "Портфолио", "Контакты"];
+  const navItems = [
+    { label: "Готовые решения", href: "#catalog" },
+    { label: "Конструктор", href: "#customizer" },
+    { label: "Навесы", href: "#canopies" },
+    { label: "Портфолио", href: "#portfolio" },
+    { label: "Контакты", href: "#footer" },
+  ];
 
   return (
     <header
@@ -410,35 +416,45 @@ function Header() {
         borderBottom: scrolled ? "1px solid rgba(198,168,107,0.08)" : "none",
       }}
     >
-      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
-        {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer">
-          <div className="w-8 h-8 border flex items-center justify-center" style={{ borderColor: GOLD }}>
-            <svg width="16" height="16" viewBox="0 0 16 16">
-              <rect x="2" y="2" width="4" height="12" fill={GOLD} />
-              <rect x="10" y="2" width="4" height="12" fill={GOLD} />
-              <rect x="2" y="7" width="12" height="2" fill={GOLD} />
-            </svg>
+      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between px-8 py-5 gap-4 lg:gap-0">
+        {/* Mobile top row */}
+        <div className="flex items-center justify-between w-full lg:w-auto">
+          {/* Logo */}
+          <div className="flex items-center gap-3 cursor-pointer">
+            <div className="w-8 h-8 border flex items-center justify-center" style={{ borderColor: GOLD }}>
+              <svg width="16" height="16" viewBox="0 0 16 16">
+                <rect x="2" y="2" width="4" height="12" fill={GOLD} />
+                <rect x="10" y="2" width="4" height="12" fill={GOLD} />
+                <rect x="2" y="7" width="12" height="2" fill={GOLD} />
+              </svg>
+            </div>
+            <span style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: 16, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+              ГРАНЬ
+            </span>
           </div>
-          <span style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: 16, letterSpacing: "0.22em", textTransform: "uppercase" }}>
-            ГРАНЬ
-          </span>
+          {/* CTA Mobile */}
+          <button
+            className="lg:hidden transition-all duration-300"
+            style={{ border: `1px solid ${GOLD}`, color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", padding: "6px 12px" }}>
+            Заказать
+          </button>
         </div>
 
         {/* Nav */}
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="flex items-center gap-6 lg:gap-9 overflow-x-auto whitespace-nowrap w-full lg:w-auto pb-1 lg:pb-0"
+             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
           {navItems.map((item) => (
-            <button key={item}
-              className="transition-colors duration-200"
-              style={{ color: "rgba(232,226,217,0.55)", fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: "0.12em", fontWeight: 400 }}
+            <a key={item.label} href={item.href}
+              className="transition-colors duration-200 cursor-pointer"
+              style={{ color: "rgba(232,226,217,0.55)", fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: "0.12em", fontWeight: 400, textDecoration: "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = GOLD)}
               onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(232,226,217,0.55)")}>
-              {item}
-            </button>
+              {item.label}
+            </a>
           ))}
         </nav>
 
-        {/* CTA */}
+        {/* CTA Desktop */}
         <button
           className="hidden lg:block transition-all duration-300"
           style={{ border: `1px solid ${GOLD}`, color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", padding: "10px 22px" }}
@@ -532,7 +548,7 @@ function HeroSection() {
 
 function CatalogSection() {
   return (
-    <section className="py-24" style={{ background: "#0C0C0C" }}>
+    <section className="py-24" style={{ background: "#0C0C0C" }} id="catalog">
       <div className="px-8 lg:px-16 max-w-[1400px] mx-auto">
         <SectionLabel>Готовые решения</SectionLabel>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
@@ -685,7 +701,7 @@ function CustomizerSection() {
   const transparency = construction === "laser" ? 40 : 10;
 
   return (
-    <section style={{ background: "#121212", minHeight: "100vh" }}>
+    <section style={{ background: "#121212", minHeight: "100vh" }} id="customizer">
       <div className="max-w-[1400px] mx-auto px-8 lg:px-16 pt-24 pb-6">
         <SectionLabel>Конструктор</SectionLabel>
         <h2 className="mb-10"
@@ -841,12 +857,20 @@ function CanopySection() {
   const [selected, setSelected] = useState(0);
   const [width, setWidth] = useState(4.5);
   const [depth, setDepth] = useState(3.0);
+  const [floor, setFloor] = useState(0);
+  const [roof, setRoof] = useState(0);
+  const [lighting, setLighting] = useState(0);
 
-  const basePriceMin = 150000 + width * depth * 8000;
-  const basePriceMax = 150000 + width * depth * 18000;
+  const roofMult = roof === 0 ? 1 : roof === 1 ? 1.2 : 1.3;
+  const area = width * depth;
+  const floorPrice = floor === 1 ? area * 5000 : 0;
+  const lightPrice = lighting === 1 ? 30000 : 0;
+
+  const basePriceMin = (150000 + area * 8000) * roofMult + floorPrice + lightPrice;
+  const basePriceMax = (150000 + area * 18000) * roofMult + floorPrice + lightPrice;
 
   return (
-    <section className="py-24" style={{ background: "#0C0C0C" }}>
+    <section className="py-24" style={{ background: "#0C0C0C" }} id="canopies">
       <div className="max-w-[1400px] mx-auto px-8 lg:px-16 mb-14">
         <SectionLabel>Навесы</SectionLabel>
         <h2 style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 300, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#E8E2D9" }}>
@@ -895,23 +919,55 @@ function CanopySection() {
           style={{ borderLeft: "1px solid rgba(198,168,107,0.07)" }}>
           <div className="w-full">
             <p style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontSize: 22, fontWeight: 300, marginBottom: 6 }}>
-              Подберите размеры вашего навеса
+              Подберите конфигурацию
             </p>
             <p style={{ color: "#555", fontFamily: "Inter, sans-serif", fontSize: 12, marginBottom: 24 }}>
               {canopyStyles[selected].name}
             </p>
-
-            {/* Top-down view */}
-            <div className="w-full mb-8 rounded-lg overflow-hidden"
-              style={{ background: "#080808", border: "1px solid rgba(198,168,107,0.08)", aspectRatio: "300/240" }}>
-              <CanopyTopView width={width} depth={depth} type={canopyStyles[selected].name} />
-            </div>
 
             <div className="flex flex-col gap-6 mb-8">
               <GoldSlider min={2} max={8} step={0.5} value={width} onChange={setWidth}
                 label="Ширина" display={`${width.toFixed(1)} м`} />
               <GoldSlider min={1.5} max={6} step={0.5} value={depth} onChange={setDepth}
                 label="Вылет / Глубина" display={`${depth.toFixed(1)} м`} />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div>
+                <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>Покрытие крыши</p>
+                <div className="flex flex-col gap-2">
+                  {["Металлопрофиль", "Оргстекло", "Поликарбонат"].map((r, i) => (
+                    <button key={r} onClick={() => setRoof(i)} className="text-left px-3 py-2 text-[11px] rounded"
+                      style={{ border: `1px solid ${roof === i ? GOLD : "#222"}`, color: roof === i ? GOLD : "#888", background: roof === i ? "rgba(198,168,107,0.05)" : "transparent" }}>
+                      {r}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>Пол</p>
+                  <div className="flex gap-2">
+                    {["Без пола", "Террасная доска"].map((f, i) => (
+                      <button key={f} onClick={() => setFloor(i)} className="flex-1 text-center px-2 py-2 text-[10px] rounded"
+                        style={{ border: `1px solid ${floor === i ? GOLD : "#222"}`, color: floor === i ? GOLD : "#888", background: floor === i ? "rgba(198,168,107,0.05)" : "transparent" }}>
+                        {f}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>Подсветка</p>
+                  <div className="flex gap-2">
+                    {["Без подсветки", "Дизайнерская"].map((l, i) => (
+                      <button key={l} onClick={() => setLighting(i)} className="flex-1 text-center px-2 py-2 text-[10px] rounded"
+                        style={{ border: `1px solid ${lighting === i ? GOLD : "#222"}`, color: lighting === i ? GOLD : "#888", background: lighting === i ? "rgba(198,168,107,0.05)" : "transparent" }}>
+                        {l}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="flex items-center justify-between flex-wrap gap-4 pt-5"
@@ -951,7 +1007,7 @@ function PortfolioSection() {
     : portfolioItems.filter((p) => p.cat === activeFilter);
 
   return (
-    <section className="py-24 px-8 lg:px-16" style={{ background: "#0f0f0f" }}>
+    <section className="py-24 px-8 lg:px-16" style={{ background: "#0f0f0f" }} id="portfolio">
       <div className="max-w-[1400px] mx-auto">
         <SectionLabel>Портфолио</SectionLabel>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -1046,7 +1102,7 @@ function Footer() {
   ];
 
   return (
-    <footer style={{ background: "#0A0A0A" }}>
+    <footer style={{ background: "#0A0A0A" }} id="footer">
       {/* Top gold line */}
       <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`, opacity: 0.25 }} />
 
