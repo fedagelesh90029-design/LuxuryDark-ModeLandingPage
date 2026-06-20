@@ -23,79 +23,83 @@ const heroSlides = [
   },
 ];
 
+// Готовые изделия — заполните реальными данными когда будут готовы
 const catalogModels = [
   {
-    name: "Лаконичный минимализм",
+    name: "Металлический забор «Стандарт»",
     category: "Заборы",
     img: "https://images.unsplash.com/photo-1717857539947-9db9a70d9fe5?w=600&h=400&fit=crop&auto=format",
-    tags: ["Глухой"],
-    price: "от 8 900 ₽/п.м.",
+    tags: ["Металл", "Глухой"],
+    price: "12 500 ₽/п.м.",
+    description: "Классический металлический забор из профильной трубы с порошковой покраской. Надёжная защита участка на десятилетия.",
   },
   {
-    name: "Ритм горизонталей",
+    name: "Пластины с лазерной резкой «Узор»",
     category: "Заборы",
     img: "https://images.unsplash.com/flagged/photo-1479802378300-8575687266bf?w=600&h=400&fit=crop&auto=format",
-    tags: ["Полузакрытый"],
-    price: "от 11 200 ₽/п.м.",
+    tags: ["Металл", "Лазерная резка"],
+    price: "18 900 ₽/п.м.",
+    description: "Металлические пластины с авторским узором лазерной резки. Сочетание эстетики и надёжности — идеально для представительных объектов.",
   },
   {
-    name: "Японский сад",
+    name: "Металлический забор «Премиум»",
     category: "Заборы",
     img: "https://images.unsplash.com/photo-1755853949781-16d2cc547757?w=600&h=400&fit=crop&auto=format",
-    tags: ["Открытый"],
-    price: "от 9 500 ₽/п.м.",
+    tags: ["Металл", "Полузакрытый"],
+    price: "15 700 ₽/п.м.",
+    description: "Усиленная конструкция из нержавеющей стали с антикоррозийным покрытием. Подходит для объектов с повышенными требованиями к безопасности.",
   },
   {
-    name: "Садовая комната",
-    category: "Навесы",
-    img: "https://images.unsplash.com/photo-1644491629308-95a9084733ac?w=600&h=400&fit=crop&auto=format",
-    tags: ["Пристенный"],
-    price: "от 185 000 ₽",
-  },
-  {
-    name: "Стеклянный павильон",
-    category: "Навесы",
-    img: "https://images.unsplash.com/photo-1649657858673-50802c2eae9f?w=600&h=400&fit=crop&auto=format",
-    tags: ["Отдельностоящий"],
-    price: "от 320 000 ₽",
-  },
-  {
-    name: "Брутальный металл",
+    name: "Пластины «Геометрия»",
     category: "Заборы",
     img: "https://images.unsplash.com/photo-1611072337226-1140ab367200?w=600&h=400&fit=crop&auto=format",
-    tags: ["Глухой"],
-    price: "от 14 900 ₽/п.м.",
+    tags: ["Металл", "Лазерная резка"],
+    price: "22 300 ₽/п.м.",
+    description: "Геометрический орнамент лазерной резки на стальных пластинах. Эксклюзивный дизайн, каждый забор изготавливается под заказ.",
   },
   {
-    name: "Лесной периметр",
+    name: "Забор «Эконом металл»",
     category: "Заборы",
     img: "https://images.unsplash.com/photo-1619976553860-b7ffbe9a093b?w=600&h=400&fit=crop&auto=format",
-    tags: ["Полузакрытый"],
-    price: "от 7 800 ₽/п.м.",
+    tags: ["Металл", "Бюджет"],
+    price: "8 900 ₽/п.м.",
+    description: "Доступное решение из оцинкованного металла. Отличное соотношение цены и качества для ограждения больших участков.",
   },
   {
-    name: "Пергола Nord",
-    category: "Навесы",
+    name: "Пластины «Флора»",
+    category: "Заборы",
+    img: "https://images.unsplash.com/photo-1649657858673-50802c2eae9f?w=600&h=400&fit=crop&auto=format",
+    tags: ["Металл", "Лазерная резка"],
+    price: "26 000 ₽/п.м.",
+    description: "Растительный орнамент ручной разработки, воплощённый методом прецизионной лазерной резки. Настоящее произведение искусства.",
+  },
+  {
+    name: "Забор «Горизонталь»",
+    category: "Заборы",
     img: "https://images.unsplash.com/photo-1757439402342-976f4e0733ec?w=600&h=400&fit=crop&auto=format",
-    tags: ["Пергола"],
-    price: "от 210 000 ₽",
+    tags: ["Металл", "Современный"],
+    price: "14 200 ₽/п.м.",
+    description: "Горизонтальные металлические ламели с регулируемым зазором. Современная минималистичная эстетика.",
+  },
+  {
+    name: "Пластины «Ромб»",
+    category: "Заборы",
+    img: "https://images.unsplash.com/photo-1644491629308-95a9084733ac?w=600&h=400&fit=crop&auto=format",
+    tags: ["Металл", "Лазерная резка"],
+    price: "19 500 ₽/п.м.",
+    description: "Ромбовидный узор лазерной резки на чёрных матовых пластинах. Строгий элегантный стиль для загородных резиденций.",
   },
 ];
 
+// Тип панелей — только металл
 const constructionTypes = [
-  { id: "shtaketnık", label: "Штакетник", sub: "вертикальный / горизонтальный" },
-  { id: "zhalyuzi", label: "Жалюзи", sub: "регулируемые ламели" },
-  { id: "rancho", label: "Ранчо", sub: "горизонтальные доски с зазором" },
-  { id: "glass", label: "Стеклянные панели", sub: "прозрачные / тонированные" },
-  { id: "composite", label: "Композитный щит", sub: "глухой" },
+  { id: "laser", label: "Пластины с лазерной резкой", sub: "авторский узор, прецизионная резка" },
+  { id: "plain", label: "Обычный металлический забор", sub: "профильная труба, глухой / со щелями" },
 ];
 
+// Материал — только металл (алюминий / сталь)
 const materialOptions = [
-  { id: "alu", label: "Алюминий", sub: "порошковая покраска", color: "#888" },
-  { id: "wood", label: "Термодерево", sub: "ясень, дуб, тик", color: "#7C5C2E" },
-  { id: "corten", label: "Кортеновская сталь", sub: "ржавый эффект", color: "#8B4A2A" },
-  { id: "glass", label: "Стекло", sub: "триплекс", color: "#4a7a8a" },
-  { id: "composite", label: "Композит", sub: "древесно-полимерный", color: "#4a4a40" },
+  { id: "alu", label: "Металл (сталь)", sub: "порошковая покраска", color: "#888" },
 ];
 
 const colorPresets = [
@@ -607,7 +611,9 @@ function CatalogSection() {
 
 function CatalogCard({ model }: { model: typeof catalogModels[0] }) {
   const [hovered, setHovered] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
+    <>
     <div className="flex flex-col cursor-pointer transition-all duration-300"
       style={{
         background: "#141414",
@@ -623,7 +629,6 @@ function CatalogCard({ model }: { model: typeof catalogModels[0] }) {
           style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }} />
         <div className="absolute inset-0"
           style={{ background: "linear-gradient(to top, rgba(20,20,20,0.85) 0%, rgba(20,20,20,0.1) 50%)" }} />
-        {/* Category badge */}
         <div className="absolute top-3 left-3"
           style={{ background: "rgba(198,168,107,0.15)", border: `1px solid rgba(198,168,107,0.3)`, borderRadius: 3, padding: "3px 8px" }}>
           <span style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase" }}>
@@ -647,37 +652,80 @@ function CatalogCard({ model }: { model: typeof catalogModels[0] }) {
           <span style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontSize: 14, fontWeight: 300 }}>
             {model.price}
           </span>
-          <span className="transition-colors duration-200"
-            style={{ color: "rgba(198,168,107,0.5)", fontFamily: "Inter, sans-serif", fontSize: 11 }}>
+          <button
+            onClick={() => setOpen(true)}
+            style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 11, background: "transparent", border: "none", cursor: "pointer", opacity: 0.7 }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.7")}>
             Подробнее →
-          </span>
+          </button>
         </div>
       </div>
     </div>
+
+    {/* Модальное окно */}
+    {open && (
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center"
+        style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)" }}
+        onClick={() => setOpen(false)}>
+        <div
+          className="relative w-full max-w-lg mx-4 rounded-2xl overflow-hidden"
+          style={{ background: "#161616", border: `1px solid rgba(198,168,107,0.2)`, boxShadow: "0 0 60px rgba(198,168,107,0.1)" }}
+          onClick={(e) => e.stopPropagation()}>
+          <img src={model.img} alt={model.name} className="w-full object-cover" style={{ height: 220 }} />
+          <div className="p-6 flex flex-col gap-4">
+            <div className="flex items-start justify-between">
+              <div>
+                <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 6 }}>{model.category}</p>
+                <h3 style={{ color: "#E8E2D9", fontFamily: "Cormorant Garamond, serif", fontSize: 22, fontWeight: 300 }}>{model.name}</h3>
+              </div>
+              <button onClick={() => setOpen(false)} style={{ color: "#6b6b6b", background: "transparent", border: "none", cursor: "pointer", fontSize: 20, lineHeight: 1 }}>✕</button>
+            </div>
+            <p style={{ color: "rgba(232,226,217,0.65)", fontFamily: "Inter, sans-serif", fontSize: 13, lineHeight: 1.7 }}>{model.description}</p>
+            <div className="flex flex-wrap gap-1.5">
+              {model.tags.map((tag) => (
+                <span key={tag} style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, background: "#1e1e1e", borderRadius: 3, padding: "4px 9px" }}>{tag}</span>
+              ))}
+            </div>
+            <div className="flex items-center justify-between pt-2" style={{ borderTop: "1px solid rgba(198,168,107,0.08)" }}>
+              <div>
+                <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.14em", marginBottom: 2 }}>Цена</p>
+                <p style={{ color: GOLD, fontFamily: "Cormorant Garamond, serif", fontSize: 20, fontWeight: 300 }}>{model.price}</p>
+              </div>
+              <button
+                style={{ background: GOLD, color: "#0C0C0C", fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", padding: "12px 22px", fontWeight: 600, borderRadius: 4, border: "none", cursor: "pointer" }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 28px rgba(198,168,107,0.4)`; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}>
+                Заказать
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
 // ─── Customizer Section ───────────────────────────────────────────────────────
 
 function CustomizerSection() {
-  const [activeTab, setActiveTab] = useState("Забор");
-  const [construction, setConstruction] = useState("shtaketnık");
-  const [material, setMaterial] = useState("alu");
+  const [construction, setConstruction] = useState("laser");
   const [height, setHeight] = useState(2.2);
   const [colorIdx, setColorIdx] = useState(1);
-  const [transparency, setTransparency] = useState(25);
-  const [slatType, setSlatType] = useState(0);
-  const [topEdge, setTopEdge] = useState(0);
-  const [lighting, setLighting] = useState(0);
 
-  const tabs = ["Забор", "Ворота", "Калитка"];
-
-  const basePrices: Record<string, number> = { alu: 14500, wood: 11000, corten: 17000, glass: 22000, composite: 13500 };
+  const material = "alu";
+  const basePricePerMeter: Record<string, number> = { laser: 18500, plain: 12500 };
   const hMult = 0.7 + ((height - 0.8) / 2.7) * 0.6;
-  const price = Math.ceil((basePrices[material] * hMult * (colorIdx >= 3 ? 1.2 : 1)) / 500) * 500;
+  const price = Math.ceil((basePricePerMeter[construction] * hMult) / 500) * 500;
 
-  const mat = materialOptions.find((m) => m.id === material);
-  const configSummary = `${mat?.label}, высота ${height.toFixed(1)}м, ${colorPresets[colorIdx].label.toLowerCase()}`;
+  const configSummary = `Металл, высота ${height.toFixed(1)}м, ${colorPresets[colorIdx].label.toLowerCase()}, ${
+    construction === "laser" ? "пластины с лазерной резкой" : "обычный забор"
+  }`;
+
+  // transparency для FencePreview
+  const transparency = construction === "laser" ? 40 : 10;
 
   return (
     <section style={{ background: "#121212", minHeight: "100vh" }}>
@@ -690,33 +738,13 @@ function CustomizerSection() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-8 lg:px-16 grid lg:grid-cols-[2fr_3fr] gap-6 pb-28">
-        {/* Left — Controls (40%) */}
+        {/* Left — Controls */}
         <GlassPanel className="flex flex-col overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b" style={{ borderColor: "#222" }}>
-            {tabs.map((tab) => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                className="flex-1 py-4 text-[11px] tracking-[0.15em] uppercase transition-all duration-200"
-                style={{
-                  color: activeTab === tab ? GOLD : "#6b6b6b",
-                  fontFamily: "Inter, sans-serif",
-                  borderBottom: `2px solid ${activeTab === tab ? GOLD : "transparent"}`,
-                  background: "transparent",
-                  marginBottom: -1,
-                }}>
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Controls scroll area */}
-          <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6"
-            style={{ maxHeight: "calc(100vh - 280px)" }}>
-
-            {/* Construction type */}
+          {/* Тип панелей */}
+          <div className="p-6 flex flex-col gap-6">
             <div>
               <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
-                Тип конструкции
+                Тип панелей
               </p>
               <div className="flex flex-col gap-2">
                 {constructionTypes.map((ct) => (
@@ -744,30 +772,18 @@ function CustomizerSection() {
 
             <div className="h-px" style={{ background: "rgba(198,168,107,0.08)" }} />
 
-            {/* Material */}
+            {/* Материал — только металл */}
             <div>
               <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
                 Материал
               </p>
-              <div className="flex flex-col gap-2">
-                {materialOptions.map((m) => (
-                  <button key={m.id} onClick={() => setMaterial(m.id)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-left transition-all duration-200"
-                    style={{
-                      border: `1px solid ${material === m.id ? GOLD : "rgba(255,255,255,0.06)"}`,
-                      background: material === m.id ? "rgba(198,168,107,0.05)" : "transparent",
-                      borderRadius: 6,
-                    }}>
-                    <div className="w-5 h-5 rounded flex-shrink-0"
-                      style={{ background: m.color, border: material === m.id ? `1.5px solid ${GOLD}` : "1px solid #333" }} />
-                    <div>
-                      <p style={{ color: material === m.id ? GOLD : "rgba(232,226,217,0.6)", fontFamily: "Inter, sans-serif", fontSize: 12 }}>
-                        {m.label}
-                      </p>
-                      <p style={{ color: "#4a4a4a", fontFamily: "Inter, sans-serif", fontSize: 10 }}>{m.sub}</p>
-                    </div>
-                  </button>
-                ))}
+              <div className="flex items-center gap-3 px-4 py-3 rounded-md"
+                style={{ border: `1px solid ${GOLD}`, background: "rgba(198,168,107,0.05)" }}>
+                <div className="w-5 h-5 rounded flex-shrink-0" style={{ background: "#888", border: `1.5px solid ${GOLD}` }} />
+                <div>
+                  <p style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 12 }}>Металл (сталь)</p>
+                  <p style={{ color: "#4a4a4a", fontFamily: "Inter, sans-serif", fontSize: 10 }}>порошковая покраска</p>
+                </div>
               </div>
             </div>
 
@@ -799,84 +815,6 @@ function CustomizerSection() {
               <p style={{ color: GOLD, fontFamily: "Inter, sans-serif", fontSize: 11, opacity: 0.65 }}>
                 {colorPresets[colorIdx].label}
               </p>
-            </div>
-
-            <div className="h-px" style={{ background: "rgba(198,168,107,0.08)" }} />
-
-            {/* Transparency */}
-            <GoldSlider min={0} max={100} step={5} value={transparency} onChange={setTransparency}
-              label="Заполнение / Прозрачность"
-              display={transparency <= 15 ? "Панорамный" : transparency >= 85 ? "Глухой" : `${transparency}%`} />
-
-            <div className="h-px" style={{ background: "rgba(198,168,107,0.08)" }} />
-
-            {/* Slat type */}
-            <div>
-              <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
-                Тип ламелей
-              </p>
-              <div className="flex gap-2">
-                {slatTypes.map((s, i) => (
-                  <button key={s} onClick={() => setSlatType(i)}
-                    className="flex-1 py-2.5 text-[10px] transition-all duration-200"
-                    style={{
-                      border: `1px solid ${slatType === i ? GOLD : "rgba(255,255,255,0.06)"}`,
-                      color: slatType === i ? GOLD : "#6b6b6b",
-                      fontFamily: "Inter, sans-serif",
-                      letterSpacing: "0.08em",
-                      borderRadius: 4,
-                      background: slatType === i ? "rgba(198,168,107,0.05)" : "transparent",
-                    }}>
-                    {s.split(" ")[0]}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Top edge */}
-            <div>
-              <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
-                Декор верхнего края
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                {topEdgeOptions.map((opt, i) => (
-                  <button key={opt} onClick={() => setTopEdge(i)}
-                    className="py-2.5 px-3 text-[10px] text-left transition-all duration-200"
-                    style={{
-                      border: `1px solid ${topEdge === i ? GOLD : "rgba(255,255,255,0.06)"}`,
-                      color: topEdge === i ? GOLD : "#6b6b6b",
-                      fontFamily: "Inter, sans-serif",
-                      borderRadius: 4,
-                      background: topEdge === i ? "rgba(198,168,107,0.05)" : "transparent",
-                    }}>
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Lighting */}
-            <div>
-              <p style={{ color: "#6b6b6b", fontFamily: "Inter, sans-serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
-                Встроенное освещение
-              </p>
-              <div className="flex flex-col gap-2">
-                {lightingOptions.map((opt, i) => (
-                  <button key={opt} onClick={() => setLighting(i)}
-                    className="flex items-center gap-3 px-4 py-2.5 transition-all duration-200"
-                    style={{
-                      border: `1px solid ${lighting === i ? GOLD : "rgba(255,255,255,0.06)"}`,
-                      background: lighting === i ? "rgba(198,168,107,0.05)" : "transparent",
-                      borderRadius: 6,
-                    }}>
-                    <div className="w-1.5 h-1.5 rounded-full"
-                      style={{ background: lighting === i ? GOLD : "#333" }} />
-                    <span style={{ color: lighting === i ? GOLD : "rgba(232,226,217,0.5)", fontFamily: "Inter, sans-serif", fontSize: 12 }}>
-                      {opt}
-                    </span>
-                  </button>
-                ))}
-              </div>
             </div>
           </div>
         </GlassPanel>
