@@ -357,12 +357,12 @@ function CanopyTopView({ width, depth, type }: { width: number; depth: number; t
   const beamCount = Math.ceil(width / 1.5);
 
   return (
-    <svg viewBox={`0 0 ${vw} ${vh}`} className="w-full h-full">
-      {Array.from({ length: 13 }).map((_, i) => (
-        <line key={`h${i}`} x1={0} y1={i * 20} x2={vw} y2={i * 20} stroke="#ffffff05" strokeWidth={0.5} />
+    <svg viewBox={`0 0 ${vw} ${vw}`} className="w-full h-full">
+      {Array.from({ length: 16 }).map((_, i) => (
+        <line key={`h${i}`} x1={0} y1={i * 20} x2={vw} y2={i * 20} stroke="#ffffff03" strokeWidth={0.5} />
       ))}
       {Array.from({ length: 16 }).map((_, i) => (
-        <line key={`v${i}`} x1={i * 20} y1={0} x2={i * 20} y2={vh} stroke="#ffffff05" strokeWidth={0.5} />
+        <line key={`v${i}`} x1={i * 20} y1={0} x2={i * 20} y2={vw} stroke="#ffffff03" strokeWidth={0.5} />
       ))}
       {isAttached && <rect x={ox - 10} y={oy} width={10} height={rd} fill="#2a2a2a" rx={1} />}
       <rect x={ox + 4} y={oy + 4} width={rw} height={rd} fill="#000" opacity={0.45} rx={3} />
@@ -383,6 +383,64 @@ function CanopyTopView({ width, depth, type }: { width: number; depth: number; t
         fontFamily="JetBrains Mono, monospace" textAnchor="middle" opacity={0.75}>{width.toFixed(1)} м</text>
       <text x={ox + rw + 12} y={oy + rd / 2 + 4} fill={GOLD} fontSize={10}
         fontFamily="JetBrains Mono, monospace" textAnchor="start" opacity={0.75}>{depth.toFixed(1)} м</text>
+    </svg>
+  );
+}
+
+// ─── Canopy Side View ─────────────────────────────────────────────────────────
+
+function CanopySideView({ width, type }: { width: number; type: string }) {
+  const vw = 300;
+  const vh = 300;
+  const height = 2.5; // fixed visual height
+  const scale = Math.min((vw - 60) / width, (vh - 80) / height, 40);
+  const rw = width * scale;
+  const rh = height * scale;
+  const ox = (vw - rw) / 2;
+  const oy = vh - rh - 40;
+  const isArch = type.includes("Арочн");
+  const isSloped = type.includes("Односкат");
+  const isGable = type.includes("Двускат");
+
+  return (
+    <svg viewBox={`0 0 ${vw} ${vh}`} className="w-full h-full">
+      {/* Grid */}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <line key={`h${i}`} x1={0} y1={i * 20} x2={vw} y2={i * 20} stroke="#ffffff03" strokeWidth={0.5} />
+      ))}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <line key={`v${i}`} x1={i * 20} y1={0} x2={i * 20} y2={vh} stroke="#ffffff03" strokeWidth={0.5} />
+      ))}
+      
+      {/* Ground */}
+      <rect x={0} y={vh - 40} width={vw} height={40} fill="#101010" />
+      <rect x={0} y={vh - 40} width={vw} height={1} fill={GOLD} opacity={0.15} />
+
+      {/* Columns */}
+      <rect x={ox + 2} y={oy} width={6} height={rh} fill={GOLD} opacity={0.7} rx={1} />
+      <rect x={ox + rw - 8} y={oy} width={6} height={rh} fill={GOLD} opacity={0.7} rx={1} />
+
+      {/* Roof */}
+      {isArch ? (
+        <path d={`M ${ox - 15} ${oy + 10} Q ${vw / 2} ${oy - 20} ${ox + rw + 15} ${oy + 10} L ${ox + rw + 15} ${oy + 16} Q ${vw / 2} ${oy - 14} ${ox - 15} ${oy + 16} Z`}
+          fill="#181818" stroke={GOLD} strokeWidth={1.5} />
+      ) : isSloped ? (
+        <polygon points={`${ox - 15},${oy - 10} ${ox + rw + 15},${oy + 10} ${ox + rw + 15},${oy + 18} ${ox - 15},${oy - 2}`}
+          fill="#181818" stroke={GOLD} strokeWidth={1.5} strokeLinejoin="round" />
+      ) : isGable ? (
+        <polygon points={`${ox - 15},${oy + 10} ${vw / 2},${oy - 25} ${ox + rw + 15},${oy + 10} ${ox + rw + 15},${oy + 18} ${vw / 2},${oy - 17} ${ox - 15},${oy + 18}`}
+          fill="#181818" stroke={GOLD} strokeWidth={1.5} strokeLinejoin="round" />
+      ) : (
+        <rect x={ox - 15} y={oy - 4} width={rw + 30} height={8} fill="#181818" stroke={GOLD} strokeWidth={1.5} rx={2} />
+      )}
+
+      {/* Dimensions */}
+      <text x={vw / 2} y={oy - 35} fill={GOLD} fontSize={10} fontFamily="JetBrains Mono, monospace" textAnchor="middle" opacity={0.75}>
+        {width.toFixed(1)} м
+      </text>
+      <text x={ox + rw + 14} y={oy + rh / 2} fill={GOLD} fontSize={10} fontFamily="JetBrains Mono, monospace" textAnchor="start" opacity={0.75}>
+        2.5 м
+      </text>
     </svg>
   );
 }
@@ -924,6 +982,20 @@ function CanopySection() {
             <p style={{ color: "#555", fontFamily: "Inter, sans-serif", fontSize: 12, marginBottom: 24 }}>
               {canopyStyles[selected].name}
             </p>
+
+            {/* Top-down and Side views */}
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              <div className="rounded-lg overflow-hidden relative"
+                style={{ background: "#080808", border: "1px solid rgba(198,168,107,0.08)", aspectRatio: "1" }}>
+                <div className="absolute top-3 left-3" style={{ color: "rgba(198,168,107,0.5)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em" }}>Сверху</div>
+                <CanopyTopView width={width} depth={depth} type={canopyStyles[selected].name} />
+              </div>
+              <div className="rounded-lg overflow-hidden relative"
+                style={{ background: "#080808", border: "1px solid rgba(198,168,107,0.08)", aspectRatio: "1" }}>
+                <div className="absolute top-3 left-3" style={{ color: "rgba(198,168,107,0.5)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em" }}>Сбоку</div>
+                <CanopySideView width={width} type={canopyStyles[selected].name} />
+              </div>
+            </div>
 
             <div className="flex flex-col gap-6 mb-8">
               <GoldSlider min={2} max={8} step={0.5} value={width} onChange={setWidth}
