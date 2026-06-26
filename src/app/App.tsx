@@ -540,7 +540,8 @@ function HeroSection() {
       {heroSlides.map((s, i) => (
         <div key={i} className="absolute inset-0 transition-opacity duration-1000"
           style={{ opacity: i === slide ? 1 : 0 }}>
-          <img src={s.url} alt={s.alt} className="w-full h-full object-cover" />
+          <img src={s.url} alt={s.alt}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         </div>
       ))}
 
@@ -1284,7 +1285,7 @@ export default function App() {
         *::-webkit-scrollbar-track { background: transparent; }
         *::-webkit-scrollbar-thumb { background: rgba(198,168,107,0.18); border-radius: 2px; }
         html { scroll-behavior: smooth; }
-        img { max-width: 100%; height: auto; }
+        img { max-width: 100%; }
         @media (max-width: 768px) {
           .hide-mobile { display: none !important; }
         }
